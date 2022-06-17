@@ -55,6 +55,11 @@
       "username": "thienari",
       "password": "d1cfda0755f136a072d70f476cac7f10",
       "giohang": "5b3fTDlq"
+    },
+    {
+      "username": "aritest",
+      "password": "d1cfda0755f136a072d70f476cac7f10",
+      "giohang": "rjLGOFuG"
     }
   ],
   "GioHang": [
@@ -114,6 +119,11 @@
     {
       "username": "thienari",
       "idgiohang": "5b3fTDlq",
+      "mathang": []
+    },
+    {
+      "username": "aritest",
+      "idgiohang": "rjLGOFuG",
       "mathang": []
     }
   ],
@@ -1659,7 +1669,7 @@
     {
       "idhoadon": "wQEudWeB",
       "magiaodich": "VxGfDnHT",
-      "thanhtoan": "momo",
+      "thanhtoan": "",
       "usr": "admin2",
       "hang": [
         {
@@ -2151,6 +2161,40 @@
       "thanhtien": "650000",
       "idgiohang": 0,
       "thoigian": "2022-06-16T15:27:32.924Z",
+      "trangthai": "dathanhtoan"
+    },
+    {
+      "idhoadon": "Vpm0aYSO",
+      "magiaodich": "OEH0M2HN",
+      "thanhtoan": "momo",
+      "usr": "aritest",
+      "hang": [
+        {
+          "ten": "PRESSURE VESSEL INSPECTION",
+          "id": "767582725",
+          "soluongdat": "1"
+        }
+      ],
+      "thanhtien": "200000",
+      "idgiohang": 0,
+      "thoigian": "2022-06-17T03:12:00.822Z",
+      "trangthai": "chuathanhtoan"
+    },
+    {
+      "idhoadon": "PapQaJZh",
+      "magiaodich": "uvQdzOMo",
+      "thanhtoan": "momo",
+      "usr": "aritest",
+      "hang": [
+        {
+          "ten": "PRESSURE VESSEL INSPECTION",
+          "id": "767582725",
+          "soluongdat": "1"
+        }
+      ],
+      "thanhtien": "200000",
+      "idgiohang": 0,
+      "thoigian": "2022-06-17T03:12:16.510Z",
       "trangthai": "dathanhtoan"
     }
   ],

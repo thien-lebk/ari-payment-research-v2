@@ -13,8 +13,9 @@
   <div class="form-inline" style="margin: 20px;">
     <h2 class="text-danger">Hình thức thanh toán: &nbsp;&nbsp;</h2>
     <select class="custom-select ">
-      <option selected value="vnpay">VNPAY</option>
-      <option value="ether">Ether</option>
+      <option selected value="vnpay">Tất cả</option>
+      <option value="vnpay">VNPAY</option>
+      <option value="momo">Momo</option>
     </select>
   </div>
   
@@ -32,7 +33,6 @@
     </thead >
     <tbody>
       <% hoadon.forEach(element => { %>
-      <% if (element.thanhtoan == "vnpay"){ %> 
       <tr>
         <th scope="row"></th>
         <td><%= element.idhoadon %></td>
@@ -47,7 +47,7 @@
           </form>
         </td>
       </tr>
-      <% } %> 
+      
       <%  }); %>
       
 

@@ -98,6 +98,21 @@ module.exports.xacnhanthanhtoan = async (req, res, next) => {
     var magiaodich = randomid();
     var usr = req.cookies.info.username;
     var donhang = { idhoadon, magiaodich, thanhtoan, usr: usr, hang: [{ ten: mathang.ten, gia: gia, id: id, soluongdat: soluongdat }], thanhtien: thanhtien, idgiohang: 0, thoigian: thoigian, trangthai:'chuathanhtoan' };
+   // Kiểm tra coi có giá km ko
+   var date1 = new Date(mathang.hankm)
+   var date2 = new Date()
+   var gia;
+   if ((date1.getTime() >= date2.getTime()) && (mathang.giakm < mathang.gia)) { 
+       gia = mathang.giakm
+   }else{
+       gia = mathang.gia
+   }
+
+   var chuyenmuc = db.get('Chuyenmuc').value();
+
+   db.get('HoaDon')
+       .push(donhang)
+       .write()
 
     if(thanhtoan=='vnpay'){
         //Qua trang sandbox VNPAY
@@ -171,22 +186,7 @@ module.exports.xacnhanthanhtoan = async (req, res, next) => {
         
      
 
-        // Kiểm tra coi có giá km ko
-        var date1 = new Date(mathang.hankm)
-        var date2 = new Date()
-        var gia;
-        if ((date1.getTime() >= date2.getTime()) && (mathang.giakm < mathang.gia)) { 
-            gia = mathang.giakm
-        }else{
-            gia = mathang.gia
-        }
-
-        var chuyenmuc = db.get('Chuyenmuc').value();
-
-        db.get('HoaDon')
-            .push(donhang)
-            .write()
-
+     
         //end;
         
         res.redirect(vnpUrl)
@@ -248,7 +248,7 @@ module.exports.lichsudathang = function (req, res, next) {
             danhsach.push(element);
         }
     });
-    console.log("role la "+ role);
+    console.log(danhsach);
     
     res.render('lichsudathang', { hoadon: danhsach, name: usr,role:role });
 }

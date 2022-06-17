@@ -92,6 +92,7 @@ router.post('/themnguoidung', auth.authen, controller.postthemnguoidung);
 router.get('/donhangchuathanhtoan', auth.authen, paymentController.donhangchuathanhtoan);
 router.post('/donhangchuathanhtoan', auth.authen, paymentController.postdonhangchuathanhtoan);      
 //Payment
+// VNPAY
 router.get('/vnpay_return', function (req, res, next) {
     var vnp_Params = req.query;
 
@@ -166,7 +167,6 @@ router.get('/vnpay_return', function (req, res, next) {
         res.render('success', {code: '97'})
     }
 });
-
 router.get('/vnpay_ipn', function (req, res, next) {
     var vnp_Params = req.query;
     var secureHash = vnp_Params['vnp_SecureHash'];
@@ -194,6 +194,66 @@ router.get('/vnpay_ipn', function (req, res, next) {
         res.status(200).json({RspCode: '97', Message: 'Fail checksum'})
     }
 });
+//Momo
+router.get('/momo_return', function (req, res, next) {
+    var momoParams = req.query;
+   
+    const idHoaDon = momoParams['orderId'];
+    if (momoParams['resultCode'] != 0) {
+        // res.render('error',{message: "Giao dịch thất bại"});
+        var find = db.get('Chuyenmuc').value();
+        var mathang = db.get('MatHang').value();
+        var name = "";
+        var role = "";
+
+        if (req.cookies.info) {
+            if (req.cookies.info.username) {
+                name = req.cookies.info.username;
+            }
+            if (req.cookies.info.role) {
+                role = req.cookies.info.role;
+            }
+        }
+
+        res.render('thanhtoanthattbai', { title: 'Express', find: find, listsp: mathang, name: name, role: role, idhoadon: momoParams['orderId'] });
+    } else {
+
+            //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
+
+            //    var hoaDon = db.get("HoaDon").find({ idhoadon: idHoaDon }).value();
+
+
+            // hoaDon.trangthai='dathanhtoan';
+            //  console.log(hoaDon);
+            //Luu thong tin vào db
+            const test123=  db.get("HoaDon").find({ idhoadon: idHoaDon }).value();
+            console.log('o day',test123);
+
+            db.get("HoaDon").find({ idhoadon: idHoaDon }).assign({ trangthai: "dathanhtoan" }).write();
+
+            //Get data đe render trang thongtinhoadon
+
+            var name = req.cookies.info.username;
+            var role = "";
+            var chuyenmuc = db.get('Chuyenmuc').value();
+            // var mathang = db.get('MatHang').find({ id: id }).value();
+            var donhang = db.get('HoaDon').find({ idhoadon: idHoaDon }).value();
+            
+            //Xoa id gio hang
+            // Sau khi hoàn thành thì empty cái giỏ hàng
+            db.get('GioHang').find({ idgiohang: donhang.idgiohang }).assign({ mathang: [] }).write();
+
+
+            if (req.cookies.info.role) {
+                role = req.cookies.info.role;
+            }
+            res.render('thongtinhoadon', { chuyenmuc: chuyenmuc, donhang: donhang, name: name, role: role });
+
+
+       
+
+    }
+})
 
 function sortObject(o) {
     var sorted = {},
